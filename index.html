@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💪 Workout Tracker</h1>
+        </header>
+
+        <main>
+            <!-- Add Workout Section -->
+            <section class="add-workout-section">
+                <h2>Add New Workout</h2>
+                <form id="workoutForm">
+                    <div class="form-group">
+                        <label for="workoutName">Workout Name:</label>
+                        <input type="text" id="workoutName" placeholder="e.g., Chest Day" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="workoutDate">Date:</label>
+                        <input type="date" id="workoutDate" required>
+                    </div>
+
+                    <div class="exercises-section">
+                        <h3>Exercises</h3>
+                        <div id="exercisesList"></div>
+                        <button type="button" id="addExerciseBtn" class="btn-secondary">+ Add Exercise</button>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Save Workout</button>
+                        <button type="button" id="cancelBtn" class="btn-secondary">Cancel</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Workouts List Section -->
+            <section class="workouts-section">
+                <h2>Your Workouts</h2>
+                <div id="workoutsList" class="workouts-list"></div>
+                <div id="emptyState" class="empty-state">
+                    <p>No workouts yet. Create your first workout above!</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Workout Detail Modal -->
+    <div id="workoutModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalWorkoutName"></h2>
+            <p id="modalWorkoutDate"></p>
+            <div id="modalExercises"></div>
+            <div class="modal-actions">
+                <button id="editWorkoutBtn" class="btn-primary">Edit</button>
+                <button id="deleteWorkoutBtn" class="btn-danger">Delete</button>
+                <button id="closeModalBtn" class="btn-secondary">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
