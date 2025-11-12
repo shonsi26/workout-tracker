@@ -210,7 +210,7 @@ const tracker = new WorkoutTracker();
 
 - [ ] Cloud synchronization
 - [ ] User authentication
-- [ ] Export workouts to CSV/PDF
+- [x] Export workouts to CSV/PDF
 - [ ] Workout templates
 - [ ] Advanced progress tracking and charts
 - [x] Dark mode (Added in v1.1)

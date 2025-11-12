@@ -309,6 +309,17 @@ main {
 }
 
 /* Workouts List */
+.workouts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#exportCsvBtn {
+    margin-right: 0;
+}
+
 .workouts-section {
     margin-top: 40px;
 }

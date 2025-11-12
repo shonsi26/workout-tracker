@@ -37,6 +37,9 @@ class WorkoutTracker {
                 this.closeModal();
             }
         });
+
+        // Export to CSV
+        document.getElementById('exportCsvBtn').addEventListener('click', () => this.exportToCSV());
     }
 
     setTodayDate() {
@@ -327,6 +330,39 @@ class WorkoutTracker {
             localStorage.setItem('theme', 'light');
             themeToggle.textContent = '🌙';
         }
+    }
+
+    exportToCSV() {
+        const headers = [
+            'Workout Name',
+            'Date',
+            'Exercise Name',
+            'Sets',
+            'Reps',
+            'Weight'
+        ];
+
+        const rows = this.workouts.flatMap(workout =>
+            workout.exercises.map(exercise => [
+                `"${workout.name.replace(/"/g, '""')}"`,
+                workout.date,
+                `"${exercise.name.replace(/"/g, '""')}"`,
+                exercise.sets,
+                exercise.reps,
+                `"${(exercise.weight || '').replace(/"/g, '""')}"`
+            ].join(','))
+        );
+
+        const csvContent = [headers.join(','), ...rows].join('\n');
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.setAttribute('href', url);
+        link.setAttribute('download', 'workouts.csv');
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
 }
 
