@@ -11,6 +11,8 @@ class WorkoutTracker {
         this.setupEventListeners();
         this.setTodayDate();
         this.renderWorkouts();
+        this.updateStatistics();
+        this.initDarkMode();
     }
 
     setupEventListeners() {
@@ -25,6 +27,9 @@ class WorkoutTracker {
         document.getElementById('editWorkoutBtn').addEventListener('click', () => this.editWorkout());
         document.getElementById('deleteWorkoutBtn').addEventListener('click', () => this.deleteWorkout());
 
+        // Dark mode toggle
+        document.getElementById('themeToggle').addEventListener('click', () => this.toggleDarkMode());
+
         // Close modal when clicking outside
         window.addEventListener('click', (e) => {
             const modal = document.getElementById('workoutModal');
@@ -32,6 +37,9 @@ class WorkoutTracker {
                 this.closeModal();
             }
         });
+
+        // Export to CSV
+        document.getElementById('exportCsvBtn').addEventListener('click', () => this.exportToCSV());
     }
 
     setTodayDate() {
@@ -142,6 +150,7 @@ class WorkoutTracker {
         this.saveToLocalStorage();
         this.resetForm();
         this.renderWorkouts();
+        this.updateStatistics();
     }
 
     resetForm() {
@@ -267,6 +276,7 @@ class WorkoutTracker {
             this.saveToLocalStorage();
             this.closeModal();
             this.renderWorkouts();
+            this.updateStatistics();
         }
     }
 
@@ -287,6 +297,72 @@ class WorkoutTracker {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
+    }
+
+    // New methods for statistics and dark mode
+    updateStatistics() {
+        const totalWorkouts = this.workouts.length;
+        const totalExercises = this.workouts.reduce((sum, workout) => sum + workout.exercises.length, 0);
+        
+        document.getElementById('totalWorkouts').textContent = totalWorkouts;
+        document.getElementById('totalExercises').textContent = totalExercises;
+    }
+
+    initDarkMode() {
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('themeToggle').textContent = '☀️';
+        }
+    }
+
+    toggleDarkMode() {
+        const body = document.body;
+        const themeToggle = document.getElementById('themeToggle');
+        
+        body.classList.toggle('dark-mode');
+        
+        if (body.classList.contains('dark-mode')) {
+            localStorage.setItem('theme', 'dark');
+            themeToggle.textContent = '☀️';
+        } else {
+            localStorage.setItem('theme', 'light');
+            themeToggle.textContent = '🌙';
+        }
+    }
+
+    exportToCSV() {
+        const headers = [
+            'Workout Name',
+            'Date',
+            'Exercise Name',
+            'Sets',
+            'Reps',
+            'Weight'
+        ];
+
+        const rows = this.workouts.flatMap(workout =>
+            workout.exercises.map(exercise => [
+                `"${workout.name.replace(/"/g, '""')}"`,
+                workout.date,
+                `"${exercise.name.replace(/"/g, '""')}"`,
+                exercise.sets,
+                exercise.reps,
+                `"${(exercise.weight || '').replace(/"/g, '""')}"`
+            ].join(','))
+        );
+
+        const csvContent = [headers.join(','), ...rows].join('\n');
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.setAttribute('href', url);
+        link.setAttribute('download', 'workouts.csv');
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
 }
 

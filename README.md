@@ -12,6 +12,9 @@ A simple, elegant web application for tracking your fitness workouts. Create, ed
 - ✅ **Responsive Design** - Works on desktop and mobile devices
 - ✅ **Date Tracking** - Organize workouts by date
 - ✅ **XSS Protection** - HTML escaping for security
+- ✅ **Dark Mode** - Toggle between light and dark themes
+- ✅ **Workout Statistics** - View total workouts and exercises count
+- ✅ **Enhanced Animations** - Smooth transitions and visual feedback
 
 ## Tech Stack
 
@@ -207,10 +210,11 @@ const tracker = new WorkoutTracker();
 
 - [ ] Cloud synchronization
 - [ ] User authentication
-- [ ] Export workouts to CSV/PDF
+- [x] Export workouts to CSV/PDF
 - [ ] Workout templates
-- [ ] Progress tracking and statistics
-- [ ] Dark mode
+- [ ] Advanced progress tracking and charts
+- [x] Dark mode (Added in v1.1)
+- [x] Basic statistics (Added in v1.1)
 - [ ] Mobile app version
 
 ## License
