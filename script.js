@@ -40,6 +40,9 @@ class WorkoutTracker {
 
         // Export to CSV
         document.getElementById('exportCsvBtn').addEventListener('click', () => this.exportToCSV());
+
+        // Search workouts
+        document.getElementById('searchWorkouts').addEventListener('input', (e) => this.filterWorkouts(e.target.value));
     }
 
     setTodayDate() {
@@ -161,13 +164,13 @@ class WorkoutTracker {
         this.setTodayDate();
     }
 
-    renderWorkouts() {
+    renderWorkouts(workoutsToRender = this.workouts) {
         const workoutsList = document.getElementById('workoutsList');
         const emptyState = document.getElementById('emptyState');
         
         workoutsList.innerHTML = '';
         
-        if (this.workouts.length === 0) {
+        if (workoutsToRender.length === 0) {
             emptyState.style.display = 'block';
             return;
         }
@@ -175,7 +178,7 @@ class WorkoutTracker {
         emptyState.style.display = 'none';
         
         // Sort workouts by date (newest first)
-        const sortedWorkouts = [...this.workouts].sort((a, b) => new Date(b.date) - new Date(a.date));
+        const sortedWorkouts = [...workoutsToRender].sort((a, b) => new Date(b.date) - new Date(a.date));
         
         sortedWorkouts.forEach(workout => {
             const card = document.createElement('div');
@@ -197,6 +200,14 @@ class WorkoutTracker {
             
             workoutsList.appendChild(card);
         });
+    }
+
+    filterWorkouts(searchTerm) {
+        const lowerCaseSearchTerm = searchTerm.toLowerCase();
+        const filteredWorkouts = this.workouts.filter(workout => 
+            workout.name.toLowerCase().includes(lowerCaseSearchTerm)
+        );
+        this.renderWorkouts(filteredWorkouts);
     }
 
     showWorkoutDetail(workoutId) {
