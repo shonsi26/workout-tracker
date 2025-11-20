@@ -1,5 +1,10 @@
 # 💪 Workout Tracker
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow.svg)](https://www.ecma-international.org/ecma-262/)
+[![Tests](https://img.shields.io/badge/tests-34%20passing-brightgreen.svg)](https://github.com/shonsi26/workout-tracker)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/shonsi26/workout-tracker/pulls)
+
 A simple, elegant web application for tracking your fitness workouts. Create, edit, and manage your workout routines with ease.
 
 ## Features
