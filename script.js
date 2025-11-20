@@ -1,4 +1,5 @@
 // Workout Tracker App
+// Main application class for managing workouts
 class WorkoutTracker {
     constructor() {
         this.workouts = this.loadFromLocalStorage();
